@@ -1,0 +1,21 @@
+const express=require("express");
+const Movie=require("../model/movie");
+const router=express.Router();
+
+router.post("/",async(req,res)=>{
+    const movie=await Movie.create(req.body);
+    res.json(movie);
+});
+router.get("/",async(req,res)=>{
+    const movies=await Movie.find();
+    res.json(movies);
+});
+router.put("/:id",async(req,res)=>{
+    const movie=await Movie.findByIdAndUpdate(req.params.id,req.body,{new:true});
+    res.json(movie);
+});
+router.delete("/:id",async(req,res)=>{
+    const movie=await Movie.findByIdAndDelete(req.params.id);
+    res.json({message:"Movie deleted successfully"});
+});
+module.exports=router;
